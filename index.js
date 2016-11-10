@@ -17,7 +17,7 @@ function getHeadlines() {
       var headlinesListView = new HeadlinesListView(array);
       document.getElementById("content").innerHTML = headlinesListView.getHTML();
 
-      newscontent = array[0].webUrl
+      newscontent = array[0].webUrl;
       getSummary(newscontent);
     }
   }
