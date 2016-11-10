@@ -1,7 +1,8 @@
 
+var urlArray = [];
+
 function getHeadlines() {
 
-  var urlArray = [];
   var xhr = new XMLHttpRequest();
   xhr.open('GET', "http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?section=politics&order-by=newest?show-fields=body", true);
   xhr.send();
@@ -21,14 +22,29 @@ function getHeadlines() {
         urlArray.push(array[i].webUrl);
       }
       console.log(urlArray);
-      getURL(urlArray);
+      return urlArray;
     }
   }
 }
 
-function getURL(urlArray) {
-  getSummary(url);
+changeSummary();
+
+function changeSummary() {
+  window.addEventListener("hashchange", showSummaryOnPage);
+};
+
+function getURL() {
+  return urlArray[getNumberFromURL()];
 }
+
+function getNumberFromURL() {
+  return window.location.hash.split("#summary/")[1];
+};
+
+function showSummaryOnPage() {
+  getSummary(getURL());
+}
+
 
 function getSummary(url) {
 
@@ -41,11 +57,10 @@ function getSummary(url) {
   function summarizeHeadline(e) {
     if (xhrsummary.readyState == 4 && xhrsummary.status == 200) {
       var response = JSON.parse(xhrsummary.responseText);
-      summaryArray.push(response.text);
+      var summary = response.sentences.join(' ');
+      document.getElementById("summary").innerHTML = summary;
     }
   }
-  console.log(summaryArray);
-  return summaryArray;
 }
 
 getHeadlines();
