@@ -7,8 +7,9 @@ xhr.onreadystatechange = processRequest;
 function processRequest(e) {
   if (xhr.readyState == 4 && xhr.status == 200) {
     var response = JSON.parse(xhr.responseText);
-    var array = response.response.results
+    var array = response.response.results;
+    console.log(array);
     var headlinesListView = new HeadlinesListView(array);
     document.getElementById("content").innerHTML = headlinesListView.getHTML();
   }
-};
+}
