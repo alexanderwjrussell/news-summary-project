@@ -31,7 +31,7 @@ changeSummary();
 
 function changeSummary() {
   window.addEventListener("hashchange", showSummaryOnPage);
-};
+}
 
 function getURL() {
   return urlArray[getNumberFromURL()];
@@ -39,7 +39,7 @@ function getURL() {
 
 function getNumberFromURL() {
   return window.location.hash.split("#summary/")[1];
-};
+}
 
 function showSummaryOnPage() {
   getSummary(getURL());
