@@ -10,7 +10,7 @@
     } else {
       var htmlOutput = "<ul>";
       for (var i = 0; i < arrayLength; i++) {
-        htmlOutput += '<li><div><img src="' + this.list[i].fields.thumbnail + '"></img><a href="#summary/' + i + '">' + this.list[i].webTitle + "</a></div></li>";
+        htmlOutput += '<li></br><div><img src="' + this.list[i].fields.thumbnail + '"></img></br><a href="#summary/' + i + '">' + this.list[i].webTitle + "</a></div></li>";
       }
     htmlOutput += "</ul>";
     }
