@@ -35,6 +35,7 @@ changeArticle();
 
 function changeArticle() {
   document.getElementById("button").addEventListener("click", showArticleOnPage);
+  document.getElementById("button").addEventListener("click", clearSummary);
 }
 
 function changeSummary() {
@@ -60,6 +61,10 @@ function showArticleOnPage() {
 
 function clearArticle() {
   document.getElementById("article").innerHTML = "";
+}
+
+function clearSummary() {
+  document.getElementById("summary").innerHTML = "";
 }
 
 
