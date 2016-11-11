@@ -31,9 +31,15 @@ function getHeadlines() {
 }
 
 changeSummary();
+changeArticle();
+
+function changeArticle() {
+  document.getElementById("button").addEventListener("click", showArticleOnPage);
+}
 
 function changeSummary() {
   window.addEventListener("hashchange", showSummaryOnPage);
+  window.addEventListener("hashchange", clearArticle);
 }
 
 function getURL() {
@@ -46,8 +52,16 @@ function getNumberFromURL() {
 
 function showSummaryOnPage() {
   getSummary(getURL());
+}
+
+function showArticleOnPage() {
   getArticle(getURL());
 }
+
+function clearArticle() {
+  document.getElementById("article").innerHTML = "";
+}
+
 
 function getSummary(url) {
   var xhr2 = new XMLHttpRequest();
