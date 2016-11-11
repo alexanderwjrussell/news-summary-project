@@ -1,3 +1,5 @@
+var urlArray = [];
+
 function getHeadlines() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', "http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?order-by=newest&api-key=test?show-fields=body", true);
@@ -13,13 +15,37 @@ function getHeadlines() {
 
       var headlinesListView = new HeadlinesListView(array);
       document.getElementById('headlines').innerHTML = headlinesListView.getHTML();
+
+      for( var i = 0; i < array.length; i++) {
+      urlArray.push(array[i].webUrl);
+      }
+      console.log(urlArray);
+      return urlArray;
     }
   }
 }
 
-function getSummary() {
+changeSummary();
+
+function changeSummary() {
+  window.addEventListener("hashchange", showSummaryOnPage);
+}
+
+function getURL() {
+  return urlArray[getNumberFromURL()];
+}
+
+function getNumberFromURL() {
+  return window.location.hash.split("#summary/")[1];
+}
+
+function showSummaryOnPage() {
+  getSummary(getURL());
+}
+
+function getSummary(url) {
   var xhr2 = new XMLHttpRequest();
-  xhr2.open('GET', "http://news-summary-api.herokuapp.com/aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=https://www.theguardian.com/film/2016/nov/11/robert-redford-says-he-will-retire-from-acting-after-two-more-films", true);
+  xhr2.open('GET', "http://news-summary-api.herokuapp.com/aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=" + url, true);
   xhr2.send();
 
   xhr2.onreadystatechange = showSummary;
@@ -34,4 +60,3 @@ function getSummary() {
 }
 
 getHeadlines();
-getSummary();

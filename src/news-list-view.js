@@ -10,7 +10,7 @@
     } else {
       var htmlOutput = "<ul>";
       for (var i = 0; i < arrayLength; i++) {
-        htmlOutput += "<li><div>" + this.list[i].webTitle + "</div></li>";
+        htmlOutput += "<li><div>" + '<a href="#summary/' + i + '">' + this.list[i].webTitle + "</a></div></li>";
       }
     htmlOutput += "</ul>";
     }
@@ -18,5 +18,5 @@
   };
 
   exports.HeadlinesListView = HeadlinesListView;
-  
+
 })(this);
