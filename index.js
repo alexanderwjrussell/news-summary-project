@@ -1,8 +1,9 @@
 var urlArray = [];
+var thumbArray = [];
 
 function getHeadlines() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', "http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?order-by=newest&api-key=test?show-fields=body", true);
+  xhr.open('GET', "http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?show-fields=thumbnail&order-by=newest&api-key=test", true);
   xhr.send();
 
   xhr.onreadystatechange = listHeadlines;
@@ -17,9 +18,11 @@ function getHeadlines() {
       document.getElementById('headlines').innerHTML = headlinesListView.getHTML();
 
       for( var i = 0; i < array.length; i++) {
-      urlArray.push(array[i].webUrl);
+        urlArray.push(array[i].webUrl);
+        thumbArray.push(array[i].fields.thumbnail);
       }
       console.log(urlArray);
+      console.log(thumbArray);
       return urlArray;
     }
   }
