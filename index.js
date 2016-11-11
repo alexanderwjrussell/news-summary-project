@@ -1,5 +1,6 @@
 var urlArray = [];
 var thumbArray = [];
+var storyArray = [];
 
 function getHeadlines() {
   var xhr = new XMLHttpRequest();
@@ -20,6 +21,7 @@ function getHeadlines() {
       for( var i = 0; i < array.length; i++) {
         urlArray.push(array[i].webUrl);
         thumbArray.push(array[i].fields.thumbnail);
+        storyArray.push(array[i].text)
       }
       console.log(urlArray);
       console.log(thumbArray);
@@ -44,6 +46,7 @@ function getNumberFromURL() {
 
 function showSummaryOnPage() {
   getSummary(getURL());
+  getArticle(getURL());
 }
 
 function getSummary(url) {
@@ -58,6 +61,22 @@ function getSummary(url) {
       var response = JSON.parse(xhr2.responseText);
       var array = response.sentences.join(" ");
       document.getElementById('summary').innerHTML = array;
+    }
+  }
+}
+
+function getArticle(url) {
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('GET', "http://news-summary-api.herokuapp.com/aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=" + url, true);
+  xhr2.send();
+
+  xhr2.onreadystatechange = showArticle;
+
+  function showArticle(e) {
+    if(xhr2.readyState == 4 && xhr2.status == 200) {
+      var response = JSON.parse(xhr2.responseText);
+      var array = response.text;
+      document.getElementById('article').innerHTML = array;
     }
   }
 }
